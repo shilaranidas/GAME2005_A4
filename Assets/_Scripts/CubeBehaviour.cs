@@ -30,6 +30,11 @@ public class CubeBehaviour : MonoBehaviour
         min = Vector3.Scale(bounds.min, transform.localScale) + transform.position;
     }
     
+    void FixedUpdate()
+    {
+        //physics related update
+    }
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;
