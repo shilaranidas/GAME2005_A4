@@ -8,7 +8,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Transform bulletSpawn;
     public GameObject bullet;
     public int fireRate;
-     public BulletManager bulletManager;
+    public BulletManager bulletManager;
     void Start()
     {
         
@@ -19,17 +19,25 @@ public class PlayerBehaviour : MonoBehaviour
     {
         fire();
     }
-    private void fire(){
-    if(Input.GetAxisRaw("Fire1")>0.0f)
-        //delays firing
-            if(Time.frameCount%fireRate==0)
-                //
-                {
-                    //Debug.Log("Fire");
-                     var tempBullet = Instantiate(bullet, bulletSpawn.position, Quaternion.identity);
-                tempBullet.GetComponent<BulletBehaviour>().direction = bulletSpawn.forward;
+    public void fire()
+    {
+        if (Time.frameCount % fireRate == 0)
+        {
+            if (Input.GetAxisRaw("Fire1") > 0.0f)
+            //delays firing
+            {
+                GameObject tempbullet = ObjectPool.SharedInstances.GetPooledObjects();
 
-                tempBullet.transform.SetParent(bulletManager.gameObject.transform);
+
+                if (tempbullet != null)
+                {
+                    tempbullet.GetComponent<BulletBehaviour>().direction = bulletSpawn.forward;
+                    tempbullet.GetComponent<BulletBehaviour>().transform.position = bulletSpawn.transform.position;
+                    tempbullet.SetActive(true);
                 }
+            }
+        }
+
     }
+
 }

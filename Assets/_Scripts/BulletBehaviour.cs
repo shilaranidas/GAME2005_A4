@@ -8,7 +8,8 @@ public class BulletBehaviour : MonoBehaviour
     public float speed;
     public Vector3 direction;
     public float range;
-    // Start is called before the first frame update
+    public bool isOutbound;
+    // Start is calld before the first frame update
     void Start()
     {
         //speed=4;
@@ -26,11 +27,15 @@ public class BulletBehaviour : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;
     }
 
-    private void _CheckBounds()
+    public void _CheckBounds()
     {
-        if (Vector3.Distance(transform.position, Vector3.zero) > range)
+        if (gameObject != null)
         {
-            Destroy(gameObject);
+            if (Vector3.Distance(transform.position, Vector3.zero) > range)
+            {
+                gameObject.SetActive(false);
+            }
+            
         }
     }
 }
